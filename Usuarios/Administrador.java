@@ -6,8 +6,8 @@ public class Administrador extends Usuario {
     private LibroBuilder builder = new LibroBuilder();
 
 
-    public Administrador(String nombre, String apellido,int edad, ArrayList<Libro> favoritos){
-        super(nombre, apellido, edad, favoritos);
+    public Administrador(String nombre, String apellido,int edad){
+        super(nombre, apellido, edad, new ArrayList<Libro>());
     }
 
     public void registrarLibro() {
@@ -47,6 +47,9 @@ public class Administrador extends Usuario {
         }
 
         Libro libro = this.builder.getResult();
+
+        
+
     }
 
 }
