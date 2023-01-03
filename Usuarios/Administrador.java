@@ -11,8 +11,8 @@ public class Administrador extends Usuario {
     private LibroBuilder builder = new LibroBuilder();
     private Scanner sc = new Scanner(System.in);
 
-    public Administrador(String nombre, String apellido,int edad){
-        super(nombre, apellido, edad, new ArrayList<Libro>());
+    public Administrador(String usuario, String password, String nombre, String apellido,int edad){
+        super(usuario, password, nombre, apellido, edad, new ArrayList<Libro>());
     }
 
     public void registrarLibro() {
