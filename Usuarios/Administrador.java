@@ -107,7 +107,7 @@ public class Administrador extends Usuario {
     }
 
     private int ingresarAño(){
-        System.out.print("Ingresa el codigo de 6 dígitos: ");
+        System.out.print("Ingresa el año de publicacion: ");
         try {
             Integer año = Integer.parseInt(sc.nextLine());
             return validarTamañoAño(año);
@@ -119,9 +119,9 @@ public class Administrador extends Usuario {
     }
 
     private int validarTamañoAño(Integer año){
-        if(año.toString().length() <= 4  && año.toString().length() >1){
+        if(año.toString().length() > 4  && año.toString().length() < 1){
             try {
-                throw new TamañoIncorrectoIntException("Se requiere un codigo de 6 digitos");
+                throw new TamañoIncorrectoIntException("Tamaño incorrecto");
             } catch (TamañoIncorrectoIntException ex) {
                 System.out.println(ex.getMessage());
                 ingresarAño();
