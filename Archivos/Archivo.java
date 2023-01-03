@@ -40,17 +40,17 @@ public class Archivo {
     }
 
     public ArrayList<Libro> LeerArchivoLibro(){
-        ArrayList<Libro> Libro = new ArrayList<>();
+        ArrayList<Libro> libros = new ArrayList<>();
         try {
-            Libro = (ArrayList<Libro>) this.archivoLibroIn.readObject();
+            libros = (ArrayList<Libro>) this.archivoLibroIn.readObject();
             this.archivoLibroIn.close();
-            return Libro;
+            return libros;
         } catch (IOException ex) {
             System.out.println("Error: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
-        return Libro;
+        return libros;
     }
 
     public void GuardarLibro(Libro libro){
@@ -58,6 +58,31 @@ public class Archivo {
         libros.add(libro);
         try {
             this.archivoLibroOut.writeObject(libros);
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+
+    public ArrayList<Usuario> LeerArchivoUsuario(){
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        try {
+            usuarios = (ArrayList<Usuario>) this.archivoUsuarioIn.readObject();
+            this.archivoLibroIn.close();
+            return usuarios;
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+        return usuarios;
+    }
+
+    public void GuardarUsuario(Usuario usuario){
+        ArrayList<Usuario> usuarios = LeerArchivoUsuario();
+        usuarios.add(usuario);
+        try {
+            this.archivoUsuarioOut.writeObject(usuarios);
         } catch (IOException ex) {
             System.out.println("Error: " + ex.getMessage());
         }
