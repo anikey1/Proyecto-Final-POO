@@ -2,7 +2,6 @@ package Usuarios;
 import java.util.*;
 import Biblioteca.*;
 import Builders.*;
-import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Archivos.Archivo;
@@ -38,15 +37,7 @@ public class Administrador extends Usuario {
                 builder.setFisico(false);
                 break;
         }
-        ObjectOutputStream fileOut;
-        try {
-            fileOut = new ObjectOutputStream(new FileOutputStream(Archivo.getInstance().getArchivoLibro()));
-            fileOut.writeObject(this.builder.getResult());
-            fileOut.close();
-        } 
-        catch (IOException e){
-            System.out.println("Error: " + e.getMessage());
-        }
+        Archivo.getInstance().GuardarLibro(builder.getResult());
     }
 
     private int ingresarCodigo(){
