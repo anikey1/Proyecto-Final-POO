@@ -19,29 +19,24 @@ public class Administrador extends Usuario {
     public void registrarLibro() {
         builder.setCodigo(ingresarCodigo());
         builder.setTitulo(IngresarTitulo());
-        builder.setAutor(ingresarString("autor"));
+        builder.setAutor(ingresarAutor());
         builder.setCodigo(ingresarAño());
-        builder.setGenero(ingresarString("genero"));
-        builder.setEditorial(ingresarString("editorial"));
-        System.out.print("\nIngresa el número de páginas");
-        builder.setNumPaginas(sc.nextInt());
+        builder.setGenero(ingresarGenero());
+        builder.setEditorial(ingresarEditorial());
+        builder.setNumPaginas(ingresarPaginas());
         System.out.print("\nEstá disponible en físico?");
         System.out.print("\n1. Sí");
         System.out.print("\n2. No");
-        System.out.print("\nIngresa una opción: ");
-        switch (sc.nextInt()) {
+        int opcion = ingresarOpcion();
+        switch (opcion) {
             case 1:
                 System.out.print("\nIngresa el número de libros: ");
                 builder.setFisico(true);
-                builder.setNumFisicos(sc.nextInt());
+                builder.setNumFisicos(opcion);
                 break;
             
             case 2:
                 builder.setFisico(false);
-                break;
-        
-            default:
-                System.out.print("Ingrese una opción correcta");
                 break;
         }
 
@@ -90,8 +85,8 @@ public class Administrador extends Usuario {
         return titulo;
     }
 
-    private String ingresarString(String dato){
-        System.out.printf("\nIngresa el %s: ", dato);
+    private String ingresarAutor(){
+        System.out.print("\nIngresa el autor: ");
         String autor = sc.nextLine();
         Pattern pattern = Pattern.compile("^[A-Za-z\s]+$");  
         Matcher matcher = pattern.matcher(autor);
@@ -100,7 +95,7 @@ public class Administrador extends Usuario {
                 throw new VerificarCadenaException("Ingresa un nombre correcto");
             } catch (VerificarCadenaException ex) {
                 System.out.println(ex.getMessage());
-                ingresarString(dato);
+                ingresarAutor();
             }
         }
         return autor;
@@ -110,7 +105,7 @@ public class Administrador extends Usuario {
         System.out.print("Ingresa el año de publicacion: ");
         try {
             Integer año = Integer.parseInt(sc.nextLine());
-            return validarTamañoAño(año);
+            return validarAño(año);
         } catch (NumberFormatException e) {
             System.out.println("Debes ingresar números");
             ingresarCodigo();
@@ -118,20 +113,8 @@ public class Administrador extends Usuario {
         return 0;
     }
 
-    private int validarTamañoAño(Integer año){
-        if(año.toString().length() > 4  && año.toString().length() < 1){
-            try {
-                throw new TamañoIncorrectoIntException("Tamaño incorrecto");
-            } catch (TamañoIncorrectoIntException ex) {
-                System.out.println(ex.getMessage());
-                ingresarAño();
-            }
-        }
-        return validarAño(año);
-    }
-
     private int validarAño(Integer año){
-        if(año <= 2022 && año > 0 ){
+        if(año > 2022 || año < 0 ){
             try {
                 throw new VerificarRangoException("Se requiere un año entre 1 y 2022");
             } catch ( VerificarRangoException ex) {
@@ -140,6 +123,85 @@ public class Administrador extends Usuario {
             }
         }
         return año;
+    }
+    private String ingresarGenero(){
+        System.out.print("\nIngresa el autor: ");
+        String autor = sc.nextLine();
+        Pattern pattern = Pattern.compile("^[A-Za-z\s]+$");  
+        Matcher matcher = pattern.matcher(autor);
+        if(!matcher.find()){ 
+            try {
+                throw new VerificarCadenaException("Ingresa un genero correcto");
+            } catch (VerificarCadenaException ex) {
+                System.out.println(ex.getMessage());
+                ingresarGenero();
+            }
+        }
+        return autor;
+    }
+
+    private String ingresarEditorial(){
+        System.out.print("\nIngresa la editorial: ");
+        String autor = sc.nextLine();
+        Pattern pattern = Pattern.compile("^[A-Za-z\s]+$");  
+        Matcher matcher = pattern.matcher(autor);
+        if(!matcher.find()){ 
+            try {
+                throw new VerificarCadenaException("Ingresa un nombre correcto");
+            } catch (VerificarCadenaException ex) {
+                System.out.println(ex.getMessage());
+                ingresarEditorial();
+            }
+        }
+        return autor;
+    }
+
+    private int ingresarPaginas(){
+        System.out.print("Ingresa el número de páginas: ");
+        try {
+            Integer pag = Integer.parseInt(sc.nextLine());
+            return validarPag(pag);
+        } catch (NumberFormatException e) {
+            System.out.println("Debes ingresar números");
+            ingresarPaginas();
+        }
+        return 0;
+    }
+
+    private int validarPag(Integer pag){
+        if(pag > 3031 || pag < 0 ){
+            try {
+                throw new VerificarRangoException("Se requiere un numero de paginas entre 1 y 3031");
+            } catch ( VerificarRangoException ex) {
+                System.out.println(ex.getMessage());
+                ingresarPaginas();
+            }
+        }
+        return pag;
+    }
+
+    private int ingresarOpcion(){
+        System.out.print("\nIngresa una opción: ");
+        try {
+            Integer opcion = Integer.parseInt(sc.nextLine());
+            return validarOpcion(opcion);
+        } catch (NumberFormatException e) {
+            System.out.println("Debes ingresar números");
+            ingresarOpcion();
+        }
+        return 0;
+    }
+
+    private int validarOpcion(Integer opcion){
+        if(opcion > 2 || opcion < 1 ){
+            try {
+                throw new VerificarRangoException("Ingresa una opción correcta");
+            } catch ( VerificarRangoException ex) {
+                System.out.println(ex.getMessage());
+                ingresarAño();
+            }
+        }
+        return opcion;
     }
 
 }
