@@ -29,4 +29,12 @@ public class Archivo {
         }
         return archivo;
     }
+
+    public File getArchivoLibro() {
+        return archivoLibro;
+    }
+
+    public File getArchivoUsuario() {
+        return archivoUsuario;
+    }
 }
