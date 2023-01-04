@@ -12,6 +12,7 @@ public class LibroBuilder implements Builder {
     private int numPaginas;
     private boolean fisico;
     private int numFisicos;
+    private boolean exclusivo;
 
     @Override
     public void setAutor(String autor) {
@@ -58,8 +59,13 @@ public class LibroBuilder implements Builder {
         this.titulo = titulo;
     }
 
+    @Override
+    public void setExclusivo(boolean exclusivo) {
+        this.exclusivo = exclusivo;
+    }
+
     public Libro getResult() {
-        return new Libro(titulo, autor, añoEd, genero, editorial, codigo, numPaginas, fisico, numFisicos);
+        return new Libro(titulo, autor, añoEd, genero, editorial, codigo, numPaginas, fisico, numFisicos, exclusivo);
     }
 
 }

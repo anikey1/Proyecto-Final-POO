@@ -10,4 +10,5 @@ public interface Builder {
     public void setGenero(String genero);
     public void setNumFisicos(int numFisicos);
     public void setNumPaginas(int numPaginas);
+    public void setExclusivo(boolean exclusivo);
 }
