@@ -63,6 +63,14 @@ public class Archivo {
         }
     }
 
+    public void ActualizarLibro(ArrayList<Libro> libros){
+        try {
+            this.archivoLibroOut.writeObject(libros);
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
 
     public ArrayList<Usuario> LeerArchivoUsuario(){
         ArrayList<Usuario> usuarios = new ArrayList<>();

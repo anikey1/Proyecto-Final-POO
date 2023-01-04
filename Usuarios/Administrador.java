@@ -50,79 +50,84 @@ public class Administrador extends Usuario {
             System.out.printf("Libro %d\n", i+1);
             libros.get(i).datosRelevantes();
         }
+        boolean ciclo = true;
         int numLibro = ElegirLibro(libros.size()) - 1;
-        System.out.print("\n1. Editar Codigo");
-        System.out.print("\n2. Editar Titulo");
-        System.out.print("\n3. Editar Autor");
-        System.out.print("\n4. Editar Año publicación");
-        System.out.print("\n5. Editar Genero");
-        System.out.print("\n6. Editar Editorial");
-        System.out.print("\n7. Editar Numero de paginas");
-        System.out.print("\n8. Editar Disponibilidad fisica");
-        System.out.print("\n9. Editar Exclusividad");
-        System.out.print("\n10. Terminar de editar");
-        switch (ingresarOpcion(10)) {
-            case 1:
-                libros.get(numLibro).setCodigo(ingresarCodigo());
-                break;
-
-            case 2:
-                libros.get(numLibro).setTitulo(IngresarTitulo());
-                break;
-            
-            case 3:
-                libros.get(numLibro).setAutor(ingresarAutor());
-                break;
-
-            case 4:
-                libros.get(numLibro).setAñoEd(ingresarAño());
-                break;
-
-            case 5:
-                libros.get(numLibro).setGenero(ingresarGenero());
-                break;
-            
-            case 6:
-                libros.get(numLibro).setEditorial(ingresarEditorial());
-                break;
-
-            case 7:
-                libros.get(numLibro).setNumPaginas(ingresarPaginas());
-                break;
-
-            case 8:
-                System.out.print("\nEstá disponible en físico?");
-                System.out.print("\n1. Sí");
-                System.out.print("\n2. No");
-                if(ingresarOpcion(2) == 1){
-                    libros.get(numLibro).setFisico(true);
-                    libros.get(numLibro).setNumFisicos(ingresarNumFisicos());
-                }
-                else{
-                    libros.get(numLibro).setFisico(false);
-                    libros.get(numLibro).setNumFisicos(0);
-                    
-                }
-                break;
-
-            case 9:
-                System.out.print("\nSerá exclusivo?");
-                System.out.print("\n1. Sí");
-                System.out.print("\n2. No");
-                if(ingresarOpcion(2) == 1){
-                    libros.get(numLibro).setExclusivo(true);
-                }else{
-                    libros.get(numLibro).setExclusivo(false);
-                }
-                break;
-
-            case 10:
+        while(ciclo == true){
+            System.out.print("\n1. Editar Codigo");
+            System.out.print("\n2. Editar Titulo");
+            System.out.print("\n3. Editar Autor");
+            System.out.print("\n4. Editar Año publicación");
+            System.out.print("\n5. Editar Genero");
+            System.out.print("\n6. Editar Editorial");
+            System.out.print("\n7. Editar Numero de paginas");
+            System.out.print("\n8. Editar Disponibilidad fisica");
+            System.out.print("\n9. Editar Exclusividad");
+            System.out.print("\n10. Terminar de editar");
+            switch (ingresarOpcion(10)) {
+                case 1:
+                    libros.get(numLibro).setCodigo(ingresarCodigo());
+                    break;
+    
+                case 2:
+                    libros.get(numLibro).setTitulo(IngresarTitulo());
+                    break;
                 
-                break;
-            
-            default:
-                break;
+                case 3:
+                    libros.get(numLibro).setAutor(ingresarAutor());
+                    break;
+    
+                case 4:
+                    libros.get(numLibro).setAñoEd(ingresarAño());
+                    break;
+    
+                case 5:
+                    libros.get(numLibro).setGenero(ingresarGenero());
+                    break;
+                
+                case 6:
+                    libros.get(numLibro).setEditorial(ingresarEditorial());
+                    break;
+    
+                case 7:
+                    libros.get(numLibro).setNumPaginas(ingresarPaginas());
+                    break;
+    
+                case 8:
+                    System.out.print("\nEstá disponible en físico?");
+                    System.out.print("\n1. Sí");
+                    System.out.print("\n2. No");
+                    if(ingresarOpcion(2) == 1){
+                        libros.get(numLibro).setFisico(true);
+                        libros.get(numLibro).setNumFisicos(ingresarNumFisicos());
+                    }
+                    else{
+                        libros.get(numLibro).setFisico(false);
+                        libros.get(numLibro).setNumFisicos(0);
+                        
+                    }
+                    break;
+    
+                case 9:
+                    System.out.print("\nSerá exclusivo?");
+                    System.out.print("\n1. Sí");
+                    System.out.print("\n2. No");
+                    if(ingresarOpcion(2) == 1){
+                        libros.get(numLibro).setExclusivo(true);
+                    }else{
+                        libros.get(numLibro).setExclusivo(false);
+                    }
+                    break;
+    
+                case 10:
+                    ciclo = false;
+                    Archivo.getInstance().ActualizarLibro(libros);
+                    break;
+                
+                default:
+                    break;
+            }
         }
+        
     }
 
     private int ingresarCodigo(){
@@ -289,13 +294,24 @@ public class Administrador extends Usuario {
         System.out.print("\nIngresa el número de libros: ");
         try {
             Integer num = Integer.parseInt(sc.nextLine());
-            return num;
+            return validarNumFisicos(num);
         } catch (NumberFormatException e) {
             System.out.println("Debes ingresar números");
             ingresarNumFisicos();
         }
         return 0;
+    }
 
+    private int validarNumFisicos(int num){
+        if(num < 1 ){
+            try {
+                throw new VerificarRangoException("Ingresa una opción correcta");
+            } catch ( VerificarRangoException ex) {
+                System.out.println(ex.getMessage());
+                ingresarNumFisicos();
+            }
+        }
+        return num;
     }
     
 
