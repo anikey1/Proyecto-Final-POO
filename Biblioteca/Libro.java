@@ -56,6 +56,10 @@ public class Libro implements Serializable{
     public int getAñoEd() {
         return añoEd;
     }
+
+    public int getCodigo() {
+        return codigo;
+    }
     
     public void setAutor(String autor) {
         this.autor = autor;

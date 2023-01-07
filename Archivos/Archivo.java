@@ -5,7 +5,7 @@ import java.util.*;
 import Usuarios.*;
 
 public class Archivo {
-    private static Archivo archivo;
+    private static Archivo archivo; //Singleton
     private ObjectOutputStream archivoLibroOut;
     private ObjectOutputStream archivoUsuarioOut;
     private ObjectInputStream archivoLibroIn;
@@ -95,6 +95,21 @@ public class Archivo {
             System.out.println("Error: " + ex.getMessage());
         }
     }
+
+    
+   /*  public Libro Prestado(int codigoLibro) {
+        ArrayList<Libro> libros = Archivo.getInstance().LeerArchivoLibro();
+        int indice=Archivo.search(codigoLibro, libros);
+        if (indice != -1) {
+            return libros.get(indice);
+        }
+        /* Fisico indica si esta disponible en fisico
+         *numFisicos, que indica cuantos hay  
+        
+        libros.get(indice);
+    }
+    */
+   
 
     public static Archivo getInstance() {
         if (archivo == null) {
