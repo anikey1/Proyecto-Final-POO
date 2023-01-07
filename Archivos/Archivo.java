@@ -96,6 +96,7 @@ public class Archivo {
         }
     }
 
+    //
     public static Archivo getInstance() {
         if (archivo == null) {
             archivo = new Archivo();
